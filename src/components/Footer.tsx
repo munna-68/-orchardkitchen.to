@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { STORE_INFO } from '@/data/mockData';
-import { Leaf, Instagram, MapPin, Clock, ShieldCheck, Heart } from 'lucide-react';
+import { Leaf, MapPin, Clock, ShieldCheck, Heart } from 'lucide-react';
+import { InstagramIcon } from '@/components/Icons';
 
 export default function Footer() {
   return (
@@ -66,7 +67,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-800 text-stone-200 hover:text-white hover:bg-stone-700 text-xs font-semibold transition-all border border-stone-700"
               >
-                <Instagram className="w-4 h-4 text-[#E54F38]" />
+                <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
                 <span>Follow {STORE_INFO.handle}</span>
               </a>
             </div>
@@ -123,7 +124,7 @@ export default function Footer() {
 
         {/* Bottom Disclaimer */}
         <div className="mt-12 pt-8 border-t border-stone-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
-          <p>© {new Date().getFullYear()} Orchard Kitchen Demo. Built for sales demonstration.</p>
+          <p>© 2026 Orchard Kitchen Demo. Built for sales demonstration.</p>
           <p className="text-stone-400 flex items-center gap-1.5">
             Crafted for <span className="text-[#E54F38]">@orchardkitchen.to</span> on King St. W
           </p>

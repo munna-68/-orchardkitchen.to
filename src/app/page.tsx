@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { STORE_INFO, MENU_ITEMS } from '@/data/mockData';
 import FoodVisual from '@/components/FoodVisual';
 import { useCart } from '@/context/CartContext';
+import { InstagramIcon } from '@/components/Icons';
 import {
   ArrowRight,
   Clock,
@@ -13,7 +14,6 @@ import {
   Sparkles,
   ShoppingBag,
   Check,
-  Instagram,
   UtensilsCrossed,
   BookOpen,
 } from 'lucide-react';
@@ -97,7 +97,7 @@ export default function HomePage() {
               {/* Social Proof / Instagram Callout */}
               <div className="pt-2 flex items-center justify-center lg:justify-start gap-3 text-xs text-stone-500">
                 <span className="flex items-center gap-1 font-semibold text-stone-800">
-                  <Instagram className="w-4 h-4 text-[#E54F38]" />
+                  <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
                   @orchardkitchen.to
                 </span>
                 <span>•</span>
@@ -333,7 +333,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             <div className="lg:col-span-8 space-y-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-stone-800 text-[#E88544] border border-stone-700">
-                <Instagram className="w-3.5 h-3.5" />
+                <InstagramIcon className="w-3.5 h-3.5" />
                 Instagram @orchardkitchen.to Integration
               </span>
               <h2 className="font-display font-bold text-2xl sm:text-3xl text-stone-100">
@@ -358,7 +358,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="w-full py-3.5 px-5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-semibold text-sm text-center border border-stone-700 transition-all flex items-center justify-center gap-2"
               >
-                <Instagram className="w-4 h-4 text-[#E54F38]" />
+                <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
                 <span>Visit Instagram Profile</span>
               </a>
             </div>

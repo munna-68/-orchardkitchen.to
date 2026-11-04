@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DASHBOARD_METRICS, STORE_INFO, MENU_ITEMS } from '@/data/mockData';
+import { InstagramIcon } from '@/components/Icons';
 import {
   TrendingUp,
-  Instagram,
   Eye,
   ShoppingBag,
   Mail,
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                 : 'text-stone-700 hover:bg-[#FAF7F2]'
             }`}
           >
-            <Instagram className="w-4 h-4 text-[#E54F38]" />
+            <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
             <span>Comment-to-Link (IG)</span>
           </button>
 
@@ -206,7 +206,7 @@ export default function DashboardPage() {
                 <div className="bg-white p-4 rounded-2xl border-2 border-[#E8E0D2] shadow-xs">
                   <div className="flex items-center justify-between text-stone-500 mb-1">
                     <span className="text-[11px] font-bold uppercase tracking-wider">IG Visits</span>
-                    <Instagram className="w-4 h-4 text-[#E54F38]" />
+                    <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
                   </div>
                   <div className="text-2xl font-display font-extrabold text-stone-900">
                     {countedValues.igVisits}
@@ -299,18 +299,15 @@ export default function DashboardPage() {
                 {/* Responsive CSS Bar Chart */}
                 <div className="pt-4 grid grid-cols-7 gap-2 sm:gap-4 items-end h-56 border-b border-stone-200 pb-2">
                   {DASHBOARD_METRICS.weeklyVolume.map((col) => {
-                    // Maximum total is ~50 orders
                     const maxScale = 55;
                     const lunchHeight = (col.lunch / maxScale) * 100;
                     const dinnerHeight = (col.dinner / maxScale) * 100;
 
                     return (
                       <div key={col.day} className="flex flex-col items-center h-full justify-end group">
-                        {/* Order count tooltip on hover */}
                         <div className="text-[10px] font-bold text-stone-700 opacity-80 group-hover:opacity-100 mb-1">
                           {col.total}
                         </div>
-                        {/* Stacked bar */}
                         <div className="w-full max-w-[42px] flex flex-col justify-end rounded-t-lg overflow-hidden bg-stone-100">
                           <div
                             style={{ height: `${dinnerHeight}%` }}
@@ -375,7 +372,7 @@ export default function DashboardPage() {
                 <div className="lg:col-span-7 bg-[#FAF2E6] rounded-3xl p-6 border-2 border-[#E8DEC8] shadow-xs space-y-4">
                   <div className="flex items-center justify-between pb-2 border-b border-[#E8DEC8]">
                     <div className="flex items-center gap-2">
-                      <Instagram className="w-5 h-5 text-[#E54F38]" />
+                      <InstagramIcon className="w-5 h-5 text-[#E54F38]" />
                       <h3 className="font-display font-bold text-base text-stone-900">
                         Top Converting Instagram Reel
                       </h3>
@@ -510,7 +507,7 @@ export default function DashboardPage() {
             <div className="bg-white rounded-3xl p-6 border-2 border-[#E8E0D2] shadow-xs space-y-6">
               <div>
                 <div className="flex items-center gap-2">
-                  <Instagram className="w-5 h-5 text-[#E54F38]" />
+                  <InstagramIcon className="w-5 h-5 text-[#E54F38]" />
                   <h3 className="font-display font-bold text-xl text-stone-900">
                     Comment-to-Link Campaign Performance
                   </h3>
