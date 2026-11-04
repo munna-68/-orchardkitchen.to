@@ -1,237 +1,228 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
-import { MISSION_PRINCIPLES, COMPARISON_MATRIX, STORE_INFO } from '@/data/mockData';
-import {
-  ShieldCheck,
-  Leaf,
-  Utensils,
-  Sparkles,
-  MapPin,
-  Clock,
-  ArrowRight,
-  Check,
-  X,
-  Compass,
-} from 'lucide-react';
+import { MISSION_PRINCIPLES, COMPARISON_MATRIX, STORE_INFO, SITE_PHOTOS } from '@/data/mockData';
+import PageHeader from '@/components/PageHeader';
+import BigTitle from '@/components/BigTitle';
+import Img from '@/components/Img';
+import Stamp from '@/components/Stamp';
+import { gsap, useGSAP, MOTION_OK } from '@/lib/gsap';
+import { MapPin, Clock, TramFront, Check, X } from 'lucide-react';
+
+const CARD_STYLES = [
+  { bg: 'bg-forest', text: 'text-cream', body: 'text-cream/80', script: 'text-lime', photo: SITE_PHOTOS.topBowl },
+  { bg: 'bg-lime', text: 'text-forest-ink', body: 'text-forest-ink/80', script: 'text-orange-deep', photo: SITE_PHOTOS.plating },
+  { bg: 'bg-paper', text: 'text-forest', body: 'text-forest-ink/75', script: 'text-orange', photo: SITE_PHOTOS.squashSoup },
+  { bg: 'bg-forest-deep', text: 'text-cream', body: 'text-cream/80', script: 'text-lime', photo: SITE_PHOTOS.kitchen },
+];
 
 export default function MissionPage() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        // stacking cards: as the next card arrives the previous one sinks back
+        const cards = gsap.utils.toArray<HTMLElement>('[data-stack]');
+        cards.forEach((card, i) => {
+          const next = cards[i + 1];
+          if (!next) return;
+          const tl = gsap.timeline({
+            scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 20%', scrub: true },
+          });
+          tl.to(card.querySelector('[data-stack-inner]'), { scale: 0.92, ease: 'none' }, 0).to(
+            card.querySelector('[data-stack-shade]'),
+            { opacity: 0.45, ease: 'none' },
+            0,
+          );
+        });
+
+        gsap.from('[data-row]', {
+          x: -30,
+          autoAlpha: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          stagger: 0.08,
+          scrollTrigger: { trigger: '[data-rows]', start: 'top 80%', once: true },
+        });
+
+        gsap.fromTo(
+          '[data-visit-window]',
+          { clipPath: 'inset(14% 10% 14% 10% round 28px)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 28px)',
+            ease: 'none',
+            scrollTrigger: { trigger: '[data-visit-window]', start: 'top 90%', end: 'center 50%', scrub: true },
+          },
+        );
+        gsap.fromTo(
+          '[data-visit-img]',
+          { scale: 1.3 },
+          {
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: { trigger: '[data-visit-window]', start: 'top 90%', end: 'center 50%', scrub: true },
+          },
+        );
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <div className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16 sm:space-y-24">
-      {/* Hero Section */}
-      <section className="text-center max-w-3xl mx-auto space-y-5">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#EEF4E9] text-[#547243] text-xs font-bold uppercase tracking-wider">
-          <ShieldCheck className="w-4 h-4" />
-          <span>The Orchard Kitchen Story</span>
-        </div>
-        <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-[#1E1B18] tracking-tight leading-tight">
-          Eliminating Ultra-Processed Foods on King Street West.
-        </h1>
-        <p className="text-stone-700 text-base sm:text-lg leading-relaxed font-normal">
-          At Orchard Kitchen, we are on a mission to eliminate ultra-processed foods by creating an
-          offering that combines three virtues: <strong className="text-stone-900">health</strong>,{' '}
-          <strong className="text-stone-900">flavour</strong>, and{' '}
-          <strong className="text-stone-900">value</strong>.
-        </p>
-      </section>
+    <div ref={root}>
+      <PageHeader
+        lines={['Our', 'mission']}
+        script="health, flavour & value"
+        intro={
+          <>
+            We want to eliminate ultra-processed food on King Street West — by cooking food that is
+            healthier, tastes better and still costs what lunch should.
+          </>
+        }
+        fact={{ value: '0', label: 'grams of seed oil in anything we cook' }}
+      />
 
-      {/* 4 Core Principle Blocks */}
-      <section className="space-y-8">
-        <div className="text-center max-w-2xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#E88544]">
-            How We Cook Every Morning
-          </span>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-stone-900 mt-1">
-            Our Four Kitchen Principles
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {MISSION_PRINCIPLES.map((principle) => (
-            <div
-              key={principle.num}
-              className="bg-white rounded-3xl p-7 sm:p-8 border-2 border-[#E8E0D2] shadow-xs hover:shadow-md transition-shadow relative overflow-hidden"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-display font-black text-2xl text-[#E54F38]/40">
-                  {principle.num}
-                </span>
-                <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] text-[#547243] flex items-center justify-center border border-stone-200">
-                  {principle.icon === 'Leaf' && <Leaf className="w-5 h-5" />}
-                  {principle.icon === 'Utensils' && <Utensils className="w-5 h-5" />}
-                  {principle.icon === 'Sparkles' && <Sparkles className="w-5 h-5" />}
-                  {principle.icon === 'ShieldCheck' && <ShieldCheck className="w-5 h-5" />}
+      {/* four principles as stacking cards */}
+      <section className="paper-grid py-20 sm:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <BigTitle lines={['Four rules']} script="we cook by every morning" />
+          <div className="mt-14 space-y-6">
+            {MISSION_PRINCIPLES.map((p, i) => {
+              const s = CARD_STYLES[i % CARD_STYLES.length];
+              return (
+                <div key={p.num} data-stack className="sticky" style={{ top: `${96 + i * 22}px` }}>
+                  <div
+                    data-stack-inner
+                    className={`relative overflow-hidden rounded-[28px] border border-forest/10 ${s.bg} ${s.text} origin-top shadow-[0_-8px_30px_-12px_rgba(42, 26, 20,0.35)]`}
+                  >
+                    <div className="grid md:grid-cols-[1.2fr_1fr] min-h-[360px]">
+                      <div className="p-7 sm:p-10 flex flex-col">
+                        <span className="wide text-7xl sm:text-8xl opacity-90">{p.num}</span>
+                        <p className={`font-script text-2xl sm:text-3xl mt-4 ${s.script}`}>{p.tagline}</p>
+                        <h3 className="wide-medium text-4xl sm:text-5xl mt-2">{p.title}</h3>
+                        <p className={`mt-4 text-sm sm:text-[15px] leading-relaxed max-w-lg ${s.body}`}>{p.desc}</p>
+                      </div>
+                      <div className="relative min-h-[220px] md:min-h-0">
+                        <Img src={s.photo} w={900} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                      </div>
+                    </div>
+                    <div data-stack-shade className="absolute inset-0 bg-black opacity-0 pointer-events-none" />
+                  </div>
                 </div>
-              </div>
-
-              <h3 className="font-display font-bold text-xl text-stone-900 mb-1">
-                {principle.title}
-              </h3>
-              <div className="text-xs font-semibold text-[#547243] mb-3">
-                {principle.tagline}
-              </div>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                {principle.desc}
-              </p>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* "How We Compare" Visual Matrix */}
-      <section className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-[#E8E0D2] shadow-sm space-y-8">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#E54F38]">
-            Ingredient Integrity
-          </span>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-stone-900">
-            How We Compare
-          </h2>
-          <p className="text-stone-600 text-sm">
-            An illustrative comparison between standard fast-casual shortcuts and the Orchard Kitchen scratch standard.
+      {/* comparison */}
+      <section className="bg-forest text-cream py-20 sm:py-28 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <BigTitle lines={['How we compare']} script="the scratch standard" tone="cream" />
+          <p className="text-center text-sm text-cream/70 max-w-xl mx-auto mt-6">
+            An illustrative look at common fast-casual shortcuts next to how we cook at 700 King West.
           </p>
-        </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm border-collapse min-w-[600px]">
-            <thead>
-              <tr className="border-b-2 border-stone-200 text-xs font-bold uppercase tracking-wider text-stone-500">
-                <th className="py-3 px-4 w-1/4">Culinary Standard</th>
-                <th className="py-3 px-4 w-3/8 text-rose-700 bg-rose-50/50 rounded-tl-xl">
-                  Ultra-Processed Fast-Casual
-                </th>
-                <th className="py-3 px-4 w-3/8 text-emerald-800 bg-emerald-50/50 rounded-tr-xl">
-                  Orchard Kitchen (700 King W)
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-100">
-              {COMPARISON_MATRIX.map((row, idx) => (
-                <tr key={idx} className="hover:bg-[#FAF7F2]/50 transition-colors">
-                  <td className="py-4 px-4 font-bold text-stone-900 align-top">
-                    {row.category}
-                  </td>
-                  <td className="py-4 px-4 text-xs text-stone-600 bg-rose-50/20 align-top">
-                    <div className="flex items-start gap-2">
-                      <span className="text-rose-500 font-bold shrink-0 mt-0.5">✕</span>
-                      <span>{row.standardFastCasual}</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-4 text-xs text-stone-800 bg-emerald-50/20 font-medium align-top">
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-600 font-bold shrink-0 mt-0.5">✓</span>
-                      <span>{row.orchardKitchen}</span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div data-rows className="mt-12 space-y-3">
+            <div className="hidden md:grid grid-cols-[1fr_1.4fr_1.4fr] gap-3 px-5 text-xs font-bold text-cream/60">
+              <span>What&apos;s in it</span>
+              <span>Typical fast-casual</span>
+              <span className="text-lime">Orchard Kitchen</span>
+            </div>
+            {COMPARISON_MATRIX.map((row) => (
+              <div
+                key={row.category}
+                data-row
+                className="grid md:grid-cols-[1fr_1.4fr_1.4fr] gap-3 md:gap-3 items-stretch"
+              >
+                <div className="wide-medium text-2xl md:text-[1.7rem] text-cream px-1 md:px-5 md:py-5 md:self-center">
+                  {row.category}
+                </div>
+                <div className="rounded-2xl border-[1.5px] border-dashed border-cream/25 p-4 sm:p-5 flex gap-3 text-[13px] text-cream/70 leading-relaxed">
+                  <X className="w-4 h-4 shrink-0 mt-0.5 text-orange" strokeWidth={3} />
+                  <span>{row.standardFastCasual}</span>
+                </div>
+                <div className="rounded-2xl bg-cream text-forest-ink p-4 sm:p-5 flex gap-3 text-[13px] leading-relaxed font-medium">
+                  <span className="shrink-0 mt-0.5 w-4 h-4 rounded-full bg-forest text-paper flex items-center justify-center">
+                    <Check className="w-2.5 h-2.5" strokeWidth={3.5} />
+                  </span>
+                  <span>{row.orchardKitchen}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <p className="text-[11px] text-stone-400 text-center italic">
-          *Descriptive ingredient sourcing comparison for customer education. Kept purely illustrative and focused on cooking practices.
-        </p>
       </section>
 
-      {/* Address, Hours & Map Placeholder Block */}
-      <section className="bg-[#FAF7F2] rounded-3xl p-6 sm:p-10 border-2 border-[#E8E0D2] shadow-xs">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Info */}
-          <div className="lg:col-span-5 space-y-5">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#547243]">
-                Downtown Toronto
+      {/* visit */}
+      <section className="paper-grid py-20 sm:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-5 space-y-6 min-w-0">
+            <BigTitle lines={['Come by']} script="King & Bathurst" align="left" />
+            <ul className="space-y-3 text-sm">
+              <li className="flex gap-3 items-start rounded-2xl bg-paper border border-line p-4">
+                <MapPin className="w-5 h-5 text-orange shrink-0" />
+                <div>
+                  <div className="font-bold text-forest">{STORE_INFO.address}</div>
+                  <div className="text-xs text-forest-ink/60">Corner of King St. W and Bathurst St.</div>
+                </div>
+              </li>
+              <li className="flex gap-3 items-start rounded-2xl bg-paper border border-line p-4">
+                <Clock className="w-5 h-5 text-orange shrink-0" />
+                <div>
+                  <div className="font-bold text-forest">{STORE_INFO.hours}</div>
+                  <div className="text-xs text-forest-ink/60">Dine in or pick up, seven days a week</div>
+                </div>
+              </li>
+              <li className="flex gap-3 items-start rounded-2xl bg-paper border border-line p-4">
+                <TramFront className="w-5 h-5 text-orange shrink-0" />
+                <div>
+                  <div className="font-bold text-forest">504 King streetcar</div>
+                  <div className="text-xs text-forest-ink/60">The Bathurst stop is right outside the door</div>
+                </div>
+              </li>
+            </ul>
+            <Link href="/order" className="btn btn-lime">
+              <span className="roll">
+                <span>Order ahead for pickup</span>
+                <span>Order ahead for pickup</span>
               </span>
-              <h2 className="font-display font-bold text-2xl sm:text-3xl text-stone-900 mt-1">
-                Visit Us at 700 King W
-              </h2>
-              <p className="text-stone-600 text-sm mt-2">
-                Situated at the corner of King Street West and Bathurst Street in the heart of Toronto&apos;s King West district.
-              </p>
-            </div>
-
-            <div className="space-y-3 text-sm text-stone-800">
-              <div className="flex items-start gap-3 p-3 rounded-xl bg-white border border-stone-200">
-                <MapPin className="w-5 h-5 text-[#E54F38] shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-bold text-stone-900">{STORE_INFO.address}</div>
-                  <div className="text-xs text-stone-500">Corner of King & Bathurst</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3 rounded-xl bg-white border border-stone-200">
-                <Clock className="w-5 h-5 text-[#547243] shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-bold text-stone-900">{STORE_INFO.hours}</div>
-                  <div className="text-xs text-stone-500">Open 7 days a week for dine-in & pickup</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3 rounded-xl bg-white border border-stone-200">
-                <Compass className="w-5 h-5 text-[#E88544] shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-bold text-stone-900">Transit & Accessibility</div>
-                  <div className="text-xs text-stone-500">504 King Streetcar stop right outside our door</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href="/order"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#E54F38] hover:bg-[#CF3F29] text-white font-bold text-sm shadow transition-all"
-              >
-                <span>Order Ahead for Pickup</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            </Link>
           </div>
 
-          {/* Stylized Map Placeholder Block */}
-          <div className="lg:col-span-7">
-            <div className="w-full h-80 sm:h-96 rounded-2xl bg-[#EFE8DC] border-2 border-[#D8CEBD] relative overflow-hidden flex flex-col justify-between p-6 shadow-inner">
-              {/* Street Grid Artwork */}
-              <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <div className="absolute top-1/2 left-0 right-0 h-14 bg-stone-500 border-y-2 border-stone-600" />
-                <div className="absolute top-0 bottom-0 left-1/2 w-16 bg-stone-500 border-x-2 border-stone-600" />
-                <div className="absolute top-1/4 left-0 right-0 h-6 bg-stone-400" />
-                <div className="absolute top-0 bottom-0 left-1/4 w-6 bg-stone-400" />
+          <div className="lg:col-span-7 relative min-h-[380px] sm:min-h-[520px]">
+            <div data-visit-window className="absolute inset-0 overflow-hidden rounded-[28px]">
+              <Img
+                data-visit-img
+                src={SITE_PHOTOS.kitchen}
+                w={1300}
+                alt="Two cooks preparing food in an open kitchen"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <Stamp
+              text="700 KING ST W • TORONTO • SINCE DAY ONE • "
+              tone="lime"
+              size={128}
+              className="absolute -top-8 -left-4 sm:-left-8"
+              center={<span className="wide text-2xl leading-[0.85]">King<br />West</span>}
+            />
+            <div className="absolute bottom-5 left-5 right-5 sm:right-auto rounded-2xl bg-cream/95 backdrop-blur-sm p-4 flex items-center gap-4">
+              <div>
+                <div className="wide-medium text-2xl text-forest">700 King St. W</div>
+                <div className="text-xs text-forest-ink/60">30 seconds from the streetcar stop</div>
               </div>
-
-              {/* Map Badge */}
-              <div className="relative z-10 flex justify-between items-start">
-                <div className="bg-white/95 backdrop-blur-xs px-3 py-1.5 rounded-lg border border-stone-300 shadow-sm text-xs font-bold text-stone-800">
-                  🗺️ Toronto Downtown Map View
-                </div>
-                <div className="bg-stone-900 text-white text-[10px] px-2.5 py-1 rounded font-mono uppercase">
-                  King & Bathurst
-                </div>
-              </div>
-
-              {/* Pin Centered at King & Bathurst */}
-              <div className="relative z-10 flex flex-col items-center justify-center my-auto">
-                <div className="relative flex flex-col items-center">
-                  <div className="px-3 py-1.5 rounded-xl bg-[#E54F38] text-white font-display font-bold text-xs shadow-xl flex items-center gap-1.5 border-2 border-white animate-bounce">
-                    <Leaf className="w-3.5 h-3.5 fill-current" />
-                    <span>Orchard Kitchen • 700 King W</span>
-                  </div>
-                  <div className="w-3 h-3 bg-[#E54F38] rotate-45 -mt-1 border-r border-b border-white" />
-                  <div className="w-12 h-2.5 bg-stone-900/20 rounded-full blur-xs mt-1" />
-                </div>
-              </div>
-
-              {/* Transit Note */}
-              <div className="relative z-10 bg-white/95 backdrop-blur-xs p-3 rounded-xl border border-stone-300 text-xs text-stone-700 flex items-center justify-between">
-                <div>
-                  <span className="font-bold text-stone-900">504 King Streetcar Stop</span>
-                  <span className="text-stone-500 block text-[11px]">Bathurst St & King St W</span>
-                </div>
-                <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded text-[10px]">
-                  Walk 30s
-                </span>
-              </div>
+              <a
+                href="https://maps.google.com/?q=700+King+St+W+Toronto"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-forest btn-sm ml-auto"
+              >
+                Directions
+              </a>
             </div>
           </div>
         </div>

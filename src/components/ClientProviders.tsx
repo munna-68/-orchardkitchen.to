@@ -6,11 +6,13 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
 import ItemDetailModal from '@/components/ItemDetailModal';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export default function ClientProviders({ children }: { children: React.ReactNode }) {
   return (
     <CartProvider>
-      <div className="min-h-screen flex flex-col bg-[#FAF7F2]">
+      <SmoothScroll />
+      <div className="min-h-screen flex flex-col bg-cream">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

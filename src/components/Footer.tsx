@@ -1,132 +1,119 @@
-import React from 'react';
+'use client';
+
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import { STORE_INFO } from '@/data/mockData';
-import { Leaf, MapPin, Clock, ShieldCheck, Heart } from 'lucide-react';
+import { MapPin, Clock, Leaf } from 'lucide-react';
 import { InstagramIcon } from '@/components/Icons';
+import { gsap, useGSAP, MOTION_OK } from '@/lib/gsap';
 
 export default function Footer() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        gsap.fromTo(
+          '[data-wordmark]',
+          { yPercent: 60 },
+          {
+            yPercent: 0,
+            ease: 'none',
+            scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'bottom bottom', scrub: true },
+          },
+        );
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <footer className="bg-[#1E1B18] text-[#FAF7F2] border-t border-stone-800 mt-auto">
-      {/* Top Value Banner */}
-      <div className="border-b border-stone-800/80 py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#E54F38]/20 text-[#E54F38] flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-stone-100">Zero Ultra-Processed Foods</h4>
-              <p className="text-xs text-stone-400">100% whole ingredients, zero seed oils</p>
-            </div>
+    <footer ref={root} className="relative bg-forest-deep text-cream mt-auto overflow-hidden">
+      {/* lime fact strip */}
+      <div className="bg-lime text-forest-ink">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-6 text-sm font-bold">
+          <span className="flex items-center gap-2">
+            <Leaf className="w-4 h-4" /> Zero ultra-processed food
+          </span>
+          <span className="flex items-center gap-2">
+            <Clock className="w-4 h-4" /> {STORE_INFO.hours}
+          </span>
+          <span className="flex items-center gap-2">
+            <MapPin className="w-4 h-4" /> 700 King St. W, Toronto
+          </span>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          <div className="md:col-span-5 space-y-5">
+            <p className="font-script text-3xl text-lime">health, flavour &amp; value</p>
+            <p className="text-cream/75 text-sm max-w-sm leading-relaxed">
+              We&apos;re on a mission to eliminate ultra-processed food on King Street West. Everything is
+              made from scratch every morning, behind our own counter.
+            </p>
+            <a
+              href={STORE_INFO.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost-light btn-sm"
+            >
+              <InstagramIcon className="w-4 h-4" />
+              <span>Follow {STORE_INFO.handle}</span>
+            </a>
           </div>
 
-          <div className="flex items-center justify-center md:justify-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
-              <Clock className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-stone-100">8:00 AM – 8:00 PM Daily</h4>
-              <p className="text-xs text-stone-400">Fast 15-minute pickup slots</p>
-            </div>
+          <div className="md:col-span-3">
+            <h4 className="wide-medium text-2xl text-lime mb-4">Explore</h4>
+            <ul className="space-y-2.5 text-sm text-cream/75">
+              {[
+                ['/', 'Home'],
+                ['/menu', 'Menu & ingredients'],
+                ['/order', 'Order ahead for pickup'],
+                ['/mission', 'Our mission & sourcing'],
+              ].map(([href, label]) => (
+                <li key={href}>
+                  <Link href={href} className="hover:text-lime transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="flex items-center justify-center md:justify-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-              <MapPin className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-stone-100">700 King Street West</h4>
-              <p className="text-xs text-stone-400">King & Bathurst, Downtown Toronto</p>
-            </div>
+          <div className="md:col-span-4">
+            <h4 className="wide-medium text-2xl text-lime mb-4">For the owner</h4>
+            <p className="text-sm text-cream/70 leading-relaxed max-w-xs">
+              One link from Instagram to a pickup order, on your own domain, with no aggregator
+              commission.
+            </p>
+            <Link href="/dashboard" className="btn btn-lime btn-sm mt-4">
+              <span className="roll">
+                <span>Open owner dashboard</span>
+                <span>Open owner dashboard</span>
+              </span>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand Col */}
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#E54F38] text-white flex items-center justify-center">
-                <Leaf className="w-4 h-4 fill-current" />
-              </div>
-              <span className="font-display font-extrabold text-2xl tracking-tight text-white">
-                Orchard Kitchen
-              </span>
-            </div>
-            <p className="text-stone-300 text-sm max-w-md leading-relaxed">
-              At Orchard Kitchen, we are on a mission to eliminate ultra-processed foods by creating
-              an offering that combines three virtues: health, flavour, and value. Made from scratch
-              every morning in Toronto.
-            </p>
-            <div className="pt-2">
-              <a
-                href={STORE_INFO.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-800 text-stone-200 hover:text-white hover:bg-stone-700 text-xs font-semibold transition-all border border-stone-700"
-              >
-                <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
-                <span>Follow {STORE_INFO.handle}</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Navigation */}
-          <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-stone-200 mb-4">
-              Explore
-            </h4>
-            <ul className="space-y-2.5 text-sm text-stone-400">
-              <li>
-                <Link href="/" className="hover:text-white transition-colors">
-                  Home Overview
-                </Link>
-              </li>
-              <li>
-                <Link href="/menu" className="hover:text-white transition-colors">
-                  Full Menu & Transparency
-                </Link>
-              </li>
-              <li>
-                <Link href="/order" className="hover:text-white transition-colors">
-                  Order Ahead for Pickup
-                </Link>
-              </li>
-              <li>
-                <Link href="/mission" className="hover:text-white transition-colors">
-                  Our Mission & Sourcing
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Sales Video Demo Note */}
-          <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-amber-400 mb-4">
-              Sales Video Walkthrough
-            </h4>
-            <p className="text-xs text-stone-400 leading-relaxed">
-              This single-domain experience converts social media visitors into direct pickup orders
-              without 3rd-party aggregator commission cuts.
-            </p>
-            <div className="mt-4">
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#E88544] text-white text-xs font-bold hover:bg-[#d07335] transition-colors"
-              >
-                Open Owner Dashboard →
-              </Link>
-            </div>
-          </div>
+      {/* giant wordmark rises as the footer enters */}
+      <div className="px-2 sm:px-4 overflow-hidden" aria-hidden>
+        <div data-wordmark className="wide text-cream/95 text-[13.8vw] leading-[0.78] text-center whitespace-nowrap">
+          Orchard Kitchen
         </div>
+      </div>
 
-        {/* Bottom Disclaimer */}
-        <div className="mt-12 pt-8 border-t border-stone-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
-          <p>© 2026 Orchard Kitchen Demo. Built for sales demonstration.</p>
-          <p className="text-stone-400 flex items-center gap-1.5">
-            Crafted for <span className="text-[#E54F38]">@orchardkitchen.to</span> on King St. W
+      <div className="relative border-t border-cream/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row gap-2 justify-between text-xs text-cream/50">
+          <p>© 2026 Orchard Kitchen demo, built for a sales walkthrough.</p>
+          <p>
+            Placeholder photography from{' '}
+            <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-lime">
+              Unsplash
+            </a>{' '}
+            contributors.
           </p>
         </div>
       </div>

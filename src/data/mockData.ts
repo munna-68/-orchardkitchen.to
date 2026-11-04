@@ -19,7 +19,7 @@ export interface MenuItem {
     gradientTo: string;
     accentEmoji: string;
     accentColor: string;
-    imageSrc?: string; // Leave empty for stylized procedural placeholder or set custom image URL
+    imageSrc?: string; // Stock placeholder (Unsplash). Swap for your own: e.g. "/images/lomo-saltado.jpg"
   };
   transparency: {
     ingredients: string[];
@@ -90,7 +90,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#C4572E',
       accentEmoji: '🥩',
       accentColor: '#E54F38',
-      imageSrc: '', // To swap image: set to e.g. "/images/lomo-saltado.jpg"
+      imageSrc: 'https://images.unsplash.com/photo-1704793027864-ac1b45376b6e', // To swap image: set to e.g. "/images/lomo-saltado.jpg"
     },
     transparency: {
       ingredients: [
@@ -133,7 +133,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#E88544',
       accentEmoji: '🍗',
       accentColor: '#D97706',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1610057098265-05f2bcbedd55',
     },
     transparency: {
       ingredients: [
@@ -173,7 +173,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#F59E0B',
       accentEmoji: '🥔',
       accentColor: '#B45309',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1631311695255-8dde6bf96cb5',
     },
     transparency: {
       ingredients: [
@@ -214,7 +214,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#EA580C',
       accentEmoji: '🎃',
       accentColor: '#E88544',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1757449723357-4fa03553b8a0',
     },
     transparency: {
       ingredients: [
@@ -252,7 +252,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#4ADE80',
       accentEmoji: '🥗',
       accentColor: '#547243',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf',
     },
     transparency: {
       ingredients: [
@@ -291,7 +291,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#10B981',
       accentEmoji: '🥑',
       accentColor: '#059669',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1757522745249-d9a075cf38de',
     },
     transparency: {
       ingredients: [
@@ -332,7 +332,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#F59E0B',
       accentEmoji: '🥣',
       accentColor: '#D97706',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1613844237701-8f3664fc2eff',
     },
     transparency: {
       ingredients: [
@@ -372,7 +372,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#F97316',
       accentEmoji: '🍠',
       accentColor: '#EA580C',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a',
     },
     transparency: {
       ingredients: [
@@ -412,7 +412,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#FBBF24',
       accentEmoji: '🧡',
       accentColor: '#F59E0B',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1459933083533-46381576caa9',
     },
     transparency: {
       ingredients: [
@@ -449,7 +449,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#FDE047',
       accentEmoji: '🍋',
       accentColor: '#CA8A04',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1612182062936-e33efa5d537e',
     },
     transparency: {
       ingredients: [
@@ -485,7 +485,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#E11D48',
       accentEmoji: '🍷',
       accentColor: '#BE123C',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1626591425404-e001dfd87de2',
     },
     transparency: {
       ingredients: [
@@ -520,7 +520,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#D97706',
       accentEmoji: '🥖',
       accentColor: '#92400E',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1767065887015-8f368d4c689d',
     },
     transparency: {
       ingredients: [
@@ -558,7 +558,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#65A30D',
       accentEmoji: '🌱',
       accentColor: '#4D7C0F',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1702650657375-934239d8b472',
     },
     transparency: {
       ingredients: [
@@ -591,7 +591,7 @@ export const MENU_ITEMS: MenuItem[] = [
       gradientTo: '#E11D48',
       accentEmoji: '🌺',
       accentColor: '#BE123C',
-      imageSrc: '',
+      imageSrc: 'https://images.unsplash.com/photo-1499638673689-79a0b5115d87',
     },
     transparency: {
       ingredients: [
@@ -762,7 +762,7 @@ export const DASHBOARD_METRICS = {
       items: 'Lomo Saltado Plate (1), Turmeric Shot (1)',
       total: '$24.00',
       status: 'Ready for Pickup',
-      statusColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+      statusColor: 'bg-lime text-forest-ink border-forest/30',
     },
     {
       id: '#OK-8421',
@@ -771,7 +771,7 @@ export const DASHBOARD_METRICS = {
       items: 'Rotisserie Chicken Plate (1), Warm Focaccia (1)',
       total: '$24.00',
       status: 'Preparing in Kitchen',
-      statusColor: 'bg-amber-100 text-amber-800 border-amber-300',
+      statusColor: 'bg-[#FDE7DA] text-[#C2461A] border-[#F7B48F]',
     },
     {
       id: '#OK-8420',
@@ -780,7 +780,7 @@ export const DASHBOARD_METRICS = {
       items: 'Fall Squash & Kale Bowl (1), Pom-Beet Shot (1)',
       total: '$21.50',
       status: 'Preparing in Kitchen',
-      statusColor: 'bg-amber-100 text-amber-800 border-amber-300',
+      statusColor: 'bg-[#FDE7DA] text-[#C2461A] border-[#F7B48F]',
     },
     {
       id: '#OK-8419',
@@ -827,3 +827,26 @@ export const DASHBOARD_METRICS = {
     { day: 'Sun', lunch: 20, dinner: 18, total: 38 },
   ],
 };
+
+/**
+ * Supporting photography (free Unsplash stock, credited in the footer).
+ * Replace with Orchard Kitchen's own photos by dropping files into /public/images
+ * and pointing these paths at them.
+ */
+export const SITE_PHOTOS = {
+  hero: 'https://images.unsplash.com/photo-1671363465562-2428cbbb764a',
+  prepTrays: 'https://images.unsplash.com/photo-1667499745120-f9bcef8f584e',
+  plating: 'https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf',
+  kitchen: 'https://images.unsplash.com/photo-1761095596588-e85f6a028894',
+  topBowl: 'https://images.unsplash.com/photo-1771074168450-11e3f8b7aa53',
+  ginger: 'https://images.unsplash.com/photo-1682530016814-6a1c1311cd6e',
+  focacciaLoaf: 'https://images.unsplash.com/photo-1767065886275-2a8ff2eaa13a',
+  squashSoup: 'https://images.unsplash.com/photo-1764015939059-2c5dee249315',
+};
+
+/** Build a sized Unsplash URL (works for any images.unsplash.com photo). */
+export function photo(src: string, w = 900, h?: number) {
+  if (!src.includes('images.unsplash.com')) return src;
+  const q = `w=${w}${h ? `&h=${h}&fit=crop` : ''}&q=72&auto=format`;
+  return `${src}${src.includes('?') ? '&' : '?'}${q}`;
+}

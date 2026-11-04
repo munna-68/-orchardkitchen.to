@@ -81,9 +81,9 @@ export default function DashboardPage() {
               status: newStatus,
               statusColor:
                 newStatus === 'Ready for Pickup'
-                  ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                  ? 'bg-[#FFF0C2] text-[#D94F3A] border-[#F5C24A]'
                   : newStatus === 'Preparing in Kitchen'
-                  ? 'bg-amber-100 text-amber-800 border-amber-300'
+                  ? 'bg-[#FDE7DA] text-[#C2461A] border-[#F7B48F]'
                   : 'bg-stone-100 text-stone-700 border-stone-300',
             }
           : o
@@ -92,23 +92,20 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
+    <div className="dash pt-24 sm:pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
       {/* Top Banner: Sales Narrative & Demo Disclaimer */}
-      <div className="bg-[#1E1B18] text-white rounded-3xl p-5 sm:p-6 shadow-md border border-stone-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="dogear bg-forest text-cream rounded-[26px] p-6 sm:p-8 flex flex-col md:flex-row md:items-end justify-between gap-5" style={{ ['--flap' as string]: '#2A1A14' }}>
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#E54F38] text-white">
-              Restaurant Owner View
-            </span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-amber-400 text-stone-900 font-bold">
-              Demo Data
-            </span>
-            <span className="text-xs text-stone-400">@orchardkitchen.to (700 King W)</span>
+            <span className="sticker bg-lime text-forest-ink" style={{ transform: 'rotate(-3deg)' }}>Owner view</span>
+            <span className="sticker bg-orange text-paper shadow-none">Demo data</span>
+            <span className="text-xs text-cream/60">{STORE_INFO.handle}, 700 King W</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-display font-bold text-stone-100">
-            Instagram-to-Pickup Command Center
+          <p className="font-script text-2xl sm:text-3xl text-lime pt-3">good morning, King West</p>
+          <h1 className="wide text-6xl sm:text-7xl lg:text-8xl text-cream">
+            Reels to pickups
           </h1>
-          <p className="text-xs sm:text-sm text-stone-300 max-w-2xl">
+          <p className="text-xs sm:text-sm text-cream/75 max-w-2xl pt-2">
             Watch how Instagram comments of &quot;menu&quot; turn directly into high-margin pickup orders on your own domain without losing 30% to delivery platforms.
           </p>
         </div>
@@ -116,7 +113,7 @@ export default function DashboardPage() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/order"
-            className="px-4 py-2.5 rounded-xl bg-white text-stone-900 font-bold text-xs hover:bg-stone-100 transition-colors flex items-center gap-1.5 shadow-xs"
+            className="btn btn-lime btn-sm"
           >
             <span>Test Customer Flow</span>
             <ExternalLink className="w-3.5 h-3.5" />
@@ -127,7 +124,7 @@ export default function DashboardPage() {
       {/* Main Layout: Sidebar Nav + Dashboard Content */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Sidebar Nav */}
-        <aside className="lg:col-span-3 bg-white rounded-3xl p-4 border-2 border-[#E8E0D2] shadow-xs space-y-2">
+        <aside className="lg:col-span-3 bg-paper rounded-3xl p-4 border-2 border-[#EED9AE] shadow-xs space-y-2">
           <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-stone-400">
             Command Views
           </div>
@@ -135,11 +132,11 @@ export default function DashboardPage() {
             onClick={() => setActiveTab('overview')}
             className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-bold transition-all text-left ${
               activeTab === 'overview'
-                ? 'bg-[#FAF2E6] text-[#E54F38] shadow-xs'
-                : 'text-stone-700 hover:bg-[#FAF7F2]'
+                ? 'bg-[#FCEFCB] text-[#D94F3A] shadow-xs'
+                : 'text-stone-700 hover:bg-[#FEF6DE]'
             }`}
           >
-            <BarChart3 className="w-4 h-4 text-[#E54F38]" />
+            <BarChart3 className="w-4 h-4 text-[#D94F3A]" />
             <span>Overview & Stats</span>
           </button>
 
@@ -147,15 +144,15 @@ export default function DashboardPage() {
             onClick={() => setActiveTab('orders')}
             className={`w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-sm font-bold transition-all text-left ${
               activeTab === 'orders'
-                ? 'bg-[#FAF2E6] text-[#E54F38] shadow-xs'
-                : 'text-stone-700 hover:bg-[#FAF7F2]'
+                ? 'bg-[#FCEFCB] text-[#D94F3A] shadow-xs'
+                : 'text-stone-700 hover:bg-[#FEF6DE]'
             }`}
           >
             <div className="flex items-center gap-3">
-              <ShoppingBag className="w-4 h-4 text-[#E88544]" />
+              <ShoppingBag className="w-4 h-4 text-[#EE8A2B]" />
               <span>Orders & Pickup Queue</span>
             </div>
-            <span className="w-5 h-5 rounded-full bg-[#E54F38] text-white text-[10px] flex items-center justify-center font-bold">
+            <span className="w-5 h-5 rounded-full bg-[#D94F3A] text-white text-[10px] flex items-center justify-center font-bold">
               {recentOrders.length}
             </span>
           </button>
@@ -164,11 +161,11 @@ export default function DashboardPage() {
             onClick={() => setActiveTab('audience')}
             className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-bold transition-all text-left ${
               activeTab === 'audience'
-                ? 'bg-[#FAF2E6] text-[#E54F38] shadow-xs'
-                : 'text-stone-700 hover:bg-[#FAF7F2]'
+                ? 'bg-[#FCEFCB] text-[#D94F3A] shadow-xs'
+                : 'text-stone-700 hover:bg-[#FEF6DE]'
             }`}
           >
-            <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
+            <InstagramIcon className="w-4 h-4 text-[#D94F3A]" />
             <span>Comment-to-Link (IG)</span>
           </button>
 
@@ -176,18 +173,18 @@ export default function DashboardPage() {
             onClick={() => setActiveTab('menu')}
             className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-bold transition-all text-left ${
               activeTab === 'menu'
-                ? 'bg-[#FAF2E6] text-[#E54F38] shadow-xs'
-                : 'text-stone-700 hover:bg-[#FAF7F2]'
+                ? 'bg-[#FCEFCB] text-[#D94F3A] shadow-xs'
+                : 'text-stone-700 hover:bg-[#FEF6DE]'
             }`}
           >
-            <Utensils className="w-4 h-4 text-[#547243]" />
+            <Utensils className="w-4 h-4 text-[#B8412D]" />
             <span>Menu & Transparency</span>
           </button>
 
           {/* Quick Highlight Box */}
           <div className="pt-4 mt-2 border-t border-stone-200 px-3 pb-2 space-y-2">
-            <div className="text-[11px] font-bold text-emerald-800 bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
-              💰 <strong className="text-emerald-900">$325.35 Saved Today</strong>
+            <div className="text-[11px] font-bold text-[#D94F3A] bg-[#FFF0C2] p-2.5 rounded-xl border border-[#F5C24A]">
+              💰 <strong className="text-[#D94F3A]">$325.35 Saved Today</strong>
               <div className="text-[10px] text-stone-600 mt-0.5">
                 Saved by receiving 38 pickup orders direct vs paying 30% delivery aggregator fees.
               </div>
@@ -203,24 +200,24 @@ export default function DashboardPage() {
               {/* Stat Cards Grid (Realistic for 2.1K IG follower restaurant) */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
                 {/* Stat 1: IG Visits */}
-                <div className="bg-white p-4 rounded-2xl border-2 border-[#E8E0D2] shadow-xs">
+                <div className="bg-paper p-4 rounded-2xl border-2 border-[#EED9AE] shadow-xs">
                   <div className="flex items-center justify-between text-stone-500 mb-1">
                     <span className="text-[11px] font-bold uppercase tracking-wider">IG Visits</span>
-                    <InstagramIcon className="w-4 h-4 text-[#E54F38]" />
+                    <InstagramIcon className="w-4 h-4 text-[#D94F3A]" />
                   </div>
                   <div className="text-2xl font-display font-extrabold text-stone-900">
                     {countedValues.igVisits}
                   </div>
-                  <span className="text-[10px] font-semibold text-emerald-600">
+                  <span className="text-[10px] font-semibold text-[#D94F3A]">
                     +18.4% this week
                   </span>
                 </div>
 
                 {/* Stat 2: Menu Views */}
-                <div className="bg-white p-4 rounded-2xl border-2 border-[#E8E0D2] shadow-xs">
+                <div className="bg-paper p-4 rounded-2xl border-2 border-[#EED9AE] shadow-xs">
                   <div className="flex items-center justify-between text-stone-500 mb-1">
                     <span className="text-[11px] font-bold uppercase tracking-wider">Menu Views</span>
-                    <Eye className="w-4 h-4 text-[#E88544]" />
+                    <Eye className="w-4 h-4 text-[#EE8A2B]" />
                   </div>
                   <div className="text-2xl font-display font-extrabold text-stone-900">
                     {countedValues.menuViews}
@@ -231,26 +228,26 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Stat 3: Pickup Orders Today */}
-                <div className="bg-white p-4 rounded-2xl border-2 border-[#E8E0D2] shadow-xs">
+                <div className="bg-paper p-4 rounded-2xl border-2 border-[#EED9AE] shadow-xs">
                   <div className="flex items-center justify-between text-stone-500 mb-1">
                     <span className="text-[11px] font-bold uppercase tracking-wider">Pickup Orders</span>
-                    <ShoppingBag className="w-4 h-4 text-[#547243]" />
+                    <ShoppingBag className="w-4 h-4 text-[#B8412D]" />
                   </div>
                   <div className="text-2xl font-display font-extrabold text-stone-900">
                     {countedValues.ordersToday}
                   </div>
-                  <span className="text-[10px] font-semibold text-emerald-600">
+                  <span className="text-[10px] font-semibold text-[#D94F3A]">
                     38 orders today
                   </span>
                 </div>
 
                 {/* Stat 4: Revenue Today (Demo) */}
-                <div className="bg-white p-4 rounded-2xl border-2 border-[#E8E0D2] shadow-xs">
+                <div className="bg-paper p-4 rounded-2xl border-2 border-[#EED9AE] shadow-xs">
                   <div className="flex items-center justify-between text-stone-500 mb-1">
                     <span className="text-[11px] font-bold uppercase tracking-wider">Revenue (Demo)</span>
-                    <DollarSign className="w-4 h-4 text-[#E54F38]" />
+                    <DollarSign className="w-4 h-4 text-[#D94F3A]" />
                   </div>
-                  <div className="text-2xl font-display font-extrabold text-[#E54F38]">
+                  <div className="text-2xl font-display font-extrabold text-[#D94F3A]">
                     ${countedValues.revenue}
                   </div>
                   <span className="text-[10px] font-medium text-stone-500">
@@ -259,7 +256,7 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Stat 5: Email Signups */}
-                <div className="bg-white p-4 rounded-2xl border-2 border-[#E8E0D2] shadow-xs col-span-2 sm:col-span-1">
+                <div className="bg-paper p-4 rounded-2xl border-2 border-[#EED9AE] shadow-xs col-span-2 sm:col-span-1">
                   <div className="flex items-center justify-between text-stone-500 mb-1">
                     <span className="text-[11px] font-bold uppercase tracking-wider">Email List</span>
                     <Mail className="w-4 h-4 text-stone-600" />
@@ -274,7 +271,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Weekly Orders Chart with Lunch & Dinner Spikes */}
-              <div className="bg-white rounded-3xl p-6 border-2 border-[#E8E0D2] shadow-xs space-y-4">
+              <div className="bg-paper rounded-3xl p-6 border-2 border-[#EED9AE] shadow-xs space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
                     <h3 className="font-display font-bold text-lg text-stone-900">
@@ -286,11 +283,11 @@ export default function DashboardPage() {
                   </div>
                   <div className="flex items-center gap-4 text-xs font-semibold">
                     <span className="flex items-center gap-1.5">
-                      <span className="w-3 h-3 rounded bg-[#E54F38]" />
+                      <span className="w-3 h-3 rounded bg-[#D94F3A]" />
                       Lunch Rush
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <span className="w-3 h-3 rounded bg-[#E88544]" />
+                      <span className="w-3 h-3 rounded bg-[#EE8A2B]" />
                       Dinner Rush
                     </span>
                   </div>
@@ -311,12 +308,12 @@ export default function DashboardPage() {
                         <div className="w-full max-w-[42px] flex flex-col justify-end rounded-t-lg overflow-hidden bg-stone-100">
                           <div
                             style={{ height: `${dinnerHeight}%` }}
-                            className="w-full bg-[#E88544] hover:bg-[#d07335] transition-all"
+                            className="w-full bg-[#EE8A2B] hover:bg-[#D4731A] transition-all"
                             title={`${col.day} Dinner: ${col.dinner} orders`}
                           />
                           <div
                             style={{ height: `${lunchHeight}%` }}
-                            className="w-full bg-[#E54F38] hover:bg-[#CF3F29] transition-all border-t border-white/20"
+                            className="w-full bg-[#D94F3A] hover:bg-[#2A1A14] transition-all border-t border-white/20"
                             title={`${col.day} Lunch: ${col.lunch} orders`}
                           />
                         </div>
@@ -336,19 +333,19 @@ export default function DashboardPage() {
               {/* Two Column Layout: Top Items & Recent Orders preview */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Top Items List */}
-                <div className="lg:col-span-5 bg-white rounded-3xl p-6 border-2 border-[#E8E0D2] shadow-xs space-y-4">
+                <div className="lg:col-span-5 bg-paper rounded-3xl p-6 border-2 border-[#EED9AE] shadow-xs space-y-4">
                   <div className="flex items-center justify-between pb-2 border-b border-stone-200">
                     <h3 className="font-display font-bold text-base text-stone-900">
                       Top Dishes Today
                     </h3>
-                    <span className="text-xs font-bold text-[#E54F38]">38 Orders</span>
+                    <span className="text-xs font-bold text-[#D94F3A]">38 Orders</span>
                   </div>
 
                   <div className="space-y-3">
                     {DASHBOARD_METRICS.topItems.map((item, idx) => (
                       <div
                         key={item.name}
-                        className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#FAF7F2] border border-stone-200"
+                        className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#FEF6DE] border border-stone-200"
                       >
                         <div className="flex items-center gap-2.5">
                           <span className="font-bold font-mono text-stone-400 w-4">
@@ -369,39 +366,39 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Comment-to-Link Spotlight */}
-                <div className="lg:col-span-7 bg-[#FAF2E6] rounded-3xl p-6 border-2 border-[#E8DEC8] shadow-xs space-y-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#E8DEC8]">
+                <div className="lg:col-span-7 bg-[#FCEFCB] rounded-3xl p-6 border-2 border-[#EED9AE] shadow-xs space-y-4">
+                  <div className="flex items-center justify-between pb-2 border-b border-[#EED9AE]">
                     <div className="flex items-center gap-2">
-                      <InstagramIcon className="w-5 h-5 text-[#E54F38]" />
+                      <InstagramIcon className="w-5 h-5 text-[#D94F3A]" />
                       <h3 className="font-display font-bold text-base text-stone-900">
                         Top Converting Instagram Reel
                       </h3>
                     </div>
                     <button
                       onClick={() => setActiveTab('audience')}
-                      className="text-xs font-bold text-[#E54F38] hover:underline"
+                      className="text-xs font-bold text-[#D94F3A] hover:underline"
                     >
                       View All Reels →
                     </button>
                   </div>
 
-                  <div className="bg-white p-4 rounded-2xl border border-stone-200 space-y-3">
+                  <div className="bg-paper p-4 rounded-2xl border border-stone-200 space-y-3">
                     <div className="text-xs font-bold text-stone-900">
                       &ldquo;What&apos;s in our Lomo Saltado? 🥩 (Zero Seed Oils)&rdquo;
                     </div>
 
                     <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                      <div className="p-2 rounded-xl bg-[#FAF7F2]">
+                      <div className="p-2 rounded-xl bg-[#FEF6DE]">
                         <span className="text-[10px] text-stone-500 block">Reel Views</span>
                         <strong className="text-base text-stone-900 font-display">18.4k</strong>
                       </div>
-                      <div className="p-2 rounded-xl bg-amber-50 border border-amber-200">
-                        <span className="text-[10px] text-amber-800 block">&quot;menu&quot; Comments</span>
-                        <strong className="text-base text-amber-900 font-display">142</strong>
+                      <div className="p-2 rounded-xl bg-[#FDE7DA] border border-[#F7B48F]">
+                        <span className="text-[10px] text-[#C2461A] block">&quot;menu&quot; Comments</span>
+                        <strong className="text-base text-[#C2461A] font-display">142</strong>
                       </div>
-                      <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-200">
-                        <span className="text-[10px] text-emerald-800 block">Direct Orders</span>
-                        <strong className="text-base text-emerald-900 font-display">44</strong>
+                      <div className="p-2 rounded-xl bg-[#FFF0C2] border border-[#F5C24A]">
+                        <span className="text-[10px] text-[#D94F3A] block">Direct Orders</span>
+                        <strong className="text-base text-[#D94F3A] font-display">44</strong>
                       </div>
                     </div>
 
@@ -416,7 +413,7 @@ export default function DashboardPage() {
 
           {/* ================= VIEW 2: ORDERS QUEUE ================= */}
           {activeTab === 'orders' && (
-            <div className="bg-white rounded-3xl p-6 border-2 border-[#E8E0D2] shadow-xs space-y-5">
+            <div className="bg-paper rounded-3xl p-6 border-2 border-[#EED9AE] shadow-xs space-y-5">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-200">
                 <div>
                   <h3 className="font-display font-bold text-xl text-stone-900">
@@ -427,7 +424,7 @@ export default function DashboardPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full font-bold">
+                  <span className="text-xs bg-[#FFF0C2] text-[#D94F3A] border border-[#F5C24A] px-3 py-1 rounded-full font-bold">
                     Kitchen Active
                   </span>
                 </div>
@@ -449,16 +446,16 @@ export default function DashboardPage() {
                   </thead>
                   <tbody className="divide-y divide-stone-100">
                     {recentOrders.map((order) => (
-                      <tr key={order.id} className="hover:bg-[#FAF7F2]/60 transition-colors">
-                        <td className="py-3 px-3 font-mono font-bold text-xs text-[#E54F38]">
+                      <tr key={order.id} className="hover:bg-[#FEF6DE]/60 transition-colors">
+                        <td className="py-3 px-3 font-mono font-bold text-xs text-[#D94F3A]">
                           {order.id}
                         </td>
                         <td className="py-3 px-3 font-semibold text-stone-900">
                           {order.customerName}
                         </td>
                         <td className="py-3 px-3 text-xs font-bold text-stone-800">
-                          <span className="inline-flex items-center gap-1 bg-[#FAF7F2] px-2 py-0.5 rounded border border-stone-200">
-                            <Clock className="w-3 h-3 text-[#E88544]" />
+                          <span className="inline-flex items-center gap-1 bg-[#FEF6DE] px-2 py-0.5 rounded border border-stone-200">
+                            <Clock className="w-3 h-3 text-[#EE8A2B]" />
                             {order.pickupTime}
                           </span>
                         </td>
@@ -504,10 +501,10 @@ export default function DashboardPage() {
 
           {/* ================= VIEW 3: AUDIENCE & COMMENT CAMPAIGNS ================= */}
           {activeTab === 'audience' && (
-            <div className="bg-white rounded-3xl p-6 border-2 border-[#E8E0D2] shadow-xs space-y-6">
+            <div className="bg-paper rounded-3xl p-6 border-2 border-[#EED9AE] shadow-xs space-y-6">
               <div>
                 <div className="flex items-center gap-2">
-                  <InstagramIcon className="w-5 h-5 text-[#E54F38]" />
+                  <InstagramIcon className="w-5 h-5 text-[#D94F3A]" />
                   <h3 className="font-display font-bold text-xl text-stone-900">
                     Comment-to-Link Campaign Performance
                   </h3>
@@ -522,7 +519,7 @@ export default function DashboardPage() {
                 {DASHBOARD_METRICS.commentCampaigns.map((camp, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-[#FAF7F2] border border-[#E8E0D2] space-y-4"
+                    className="p-5 rounded-2xl bg-[#FEF6DE] border border-[#EED9AE] space-y-4"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-stone-200">
                       <div>
@@ -533,31 +530,31 @@ export default function DashboardPage() {
                           {camp.reelTitle}
                         </h4>
                       </div>
-                      <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 w-fit">
+                      <span className="text-xs font-bold text-[#D94F3A] bg-[#FFF0C2] px-2.5 py-1 rounded-full border border-[#F5C24A] w-fit">
                         {camp.conversionRate} Conversion
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
-                      <div className="bg-white p-2.5 rounded-xl border border-stone-200">
+                      <div className="bg-paper p-2.5 rounded-xl border border-stone-200">
                         <span className="text-[10px] text-stone-400 block">Total Views</span>
                         <strong className="text-sm font-bold text-stone-900">{camp.views}</strong>
                       </div>
-                      <div className="bg-white p-2.5 rounded-xl border border-stone-200">
+                      <div className="bg-paper p-2.5 rounded-xl border border-stone-200">
                         <span className="text-[10px] text-stone-400 block">&quot;menu&quot; Comments</span>
                         <strong className="text-sm font-bold text-stone-900">{camp.comments}</strong>
                       </div>
-                      <div className="bg-white p-2.5 rounded-xl border border-stone-200">
+                      <div className="bg-paper p-2.5 rounded-xl border border-stone-200">
                         <span className="text-[10px] text-stone-400 block">Links Sent (DM)</span>
                         <strong className="text-sm font-bold text-stone-900">{camp.linksSent}</strong>
                       </div>
-                      <div className="bg-white p-2.5 rounded-xl border border-stone-200">
+                      <div className="bg-paper p-2.5 rounded-xl border border-stone-200">
                         <span className="text-[10px] text-stone-400 block">Pickup Orders</span>
-                        <strong className="text-sm font-bold text-[#E54F38]">{camp.ordersPlaced}</strong>
+                        <strong className="text-sm font-bold text-[#D94F3A]">{camp.ordersPlaced}</strong>
                       </div>
-                      <div className="bg-white p-2.5 rounded-xl border border-stone-200 col-span-2 sm:col-span-1">
+                      <div className="bg-paper p-2.5 rounded-xl border border-stone-200 col-span-2 sm:col-span-1">
                         <span className="text-[10px] text-stone-400 block">Revenue</span>
-                        <strong className="text-sm font-bold text-emerald-700 font-mono">
+                        <strong className="text-sm font-bold text-[#D94F3A] font-mono">
                           {camp.revenueGenerated}
                         </strong>
                       </div>
@@ -567,7 +564,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Callout box for sales pitch */}
-              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1">
+              <div className="p-4 rounded-2xl bg-[#FDE7DA] border border-[#F7B48F] text-xs text-[#C2461A] space-y-1">
                 <strong>Why this converts:</strong> Instead of sending commenters to a generic Linktree with 6 broken links, the automation sends one bespoke link with the dish they just watched, full ingredient transparency, and instant 15-minute pickup checkout.
               </div>
             </div>
@@ -575,7 +572,7 @@ export default function DashboardPage() {
 
           {/* ================= VIEW 4: MENU & TRANSPARENCY ================= */}
           {activeTab === 'menu' && (
-            <div className="bg-white rounded-3xl p-6 border-2 border-[#E8E0D2] shadow-xs space-y-6">
+            <div className="bg-paper rounded-3xl p-6 border-2 border-[#EED9AE] shadow-xs space-y-6">
               <div className="flex items-center justify-between pb-3 border-b border-stone-200">
                 <div>
                   <h3 className="font-display font-bold text-xl text-stone-900">
@@ -585,7 +582,7 @@ export default function DashboardPage() {
                     Live check on all 14 dishes: 100% seed-oil free verification & in-house prep logs
                   </p>
                 </div>
-                <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full border border-emerald-300">
+                <span className="text-xs bg-[#FFF0C2] text-[#D94F3A] font-bold px-3 py-1 rounded-full border border-[#F5C24A]">
                   14/14 Disclosed
                 </span>
               </div>
@@ -594,7 +591,7 @@ export default function DashboardPage() {
                 {MENU_ITEMS.map((dish) => (
                   <div
                     key={dish.id}
-                    className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                    className="p-3.5 rounded-2xl bg-[#FEF6DE] border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-xl">{dish.visual.accentEmoji}</span>
@@ -607,15 +604,15 @@ export default function DashboardPage() {
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
-                      <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded bg-[#FFF0C2] text-[#D94F3A] border border-[#F5C24A] text-[10px] font-bold">
                         ✓ 0 Seed Oils
                       </span>
-                      <span className="px-2 py-0.5 rounded bg-white text-stone-700 border border-stone-200 text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded bg-paper text-stone-700 border border-stone-200 text-[10px] font-bold">
                         ${dish.price.toFixed(2)}
                       </span>
                       <Link
                         href="/menu"
-                        className="px-2.5 py-1 rounded bg-[#E54F38] text-white font-bold text-[10px] hover:bg-[#CF3F29]"
+                        className="px-2.5 py-1 rounded bg-[#D94F3A] text-white font-bold text-[10px] hover:bg-[#2A1A14]"
                       >
                         Preview Label
                       </Link>

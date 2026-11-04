@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { MenuItem } from '@/data/mockData';
+import Img from '@/components/Img';
 
 interface FoodVisualProps {
   item: MenuItem;
@@ -12,16 +13,29 @@ interface FoodVisualProps {
 export default function FoodVisual({ item, className = '', size = 'md' }: FoodVisualProps) {
   const { visual, name } = item;
 
-  // If a real image path was supplied by the user in mockData, render that directly
+  // Photo path (stock placeholders live in mockData — swap for the kitchen's own shots)
   if (visual.imageSrc) {
+    const aspect = /\baspect-/.test(className) ? '' : {
+      sm: 'aspect-[4/3]',
+      md: 'aspect-[4/3]',
+      lg: 'aspect-[5/4]',
+      hero: 'aspect-[5/4]',
+    }[size];
+    const w = size === 'sm' ? 520 : size === 'md' ? 760 : 1000;
     return (
-      <div className={`relative overflow-hidden rounded-2xl bg-stone-100 ${className}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+      <div className={`relative overflow-hidden rounded-2xl bg-cream-deep group/photo ${aspect} ${className}`}>
+        <Img
           src={visual.imageSrc}
+          w={w}
+          h={Math.round(w * 0.78)}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover/photo:scale-[1.06]"
         />
+        {item.isSeasonal && item.seasonTag && (
+          <span className="sticker absolute top-3 left-3 bg-lime text-forest-ink" style={{ transform: 'rotate(-4deg)' }}>
+            {item.seasonTag}
+          </span>
+        )}
       </div>
     );
   }

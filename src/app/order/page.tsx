@@ -3,12 +3,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import { MENU_ITEMS, PICKUP_TIME_SLOTS, STORE_INFO } from '@/data/mockData';
-import FoodVisual from '@/components/FoodVisual';
+import { MENU_ITEMS, PICKUP_TIME_SLOTS } from '@/data/mockData';
 import {
   Clock,
   MapPin,
-  ShieldCheck,
   ShoppingBag,
   Trash2,
   Plus,
@@ -21,7 +19,11 @@ import {
   FileText,
   AlertCircle,
   RotateCcw,
+  ChefHat,
+  Package,
 } from 'lucide-react';
+import PageHeader from '@/components/PageHeader';
+import Img from '@/components/Img';
 
 export default function OrderPickupPage() {
   const {
@@ -66,16 +68,16 @@ export default function OrderPickupPage() {
   // If order was placed, show confirmation screen
   if (hasSubmitted && currentOrder) {
     return (
-      <div className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto space-y-8 animate-in fade-in duration-300">
+      <div className="pt-28 sm:pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto space-y-8">
         <div className="text-center space-y-3">
-          <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
+          <div className="w-20 h-20 rounded-full bg-[#FFF0C2] text-[#D94F3A] flex items-center justify-center mx-auto shadow-inner">
             <CheckCircle className="w-12 h-12" />
           </div>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#FFF0C2] text-[#D94F3A] border border-[#F5C24A]">
             Demo Order Confirmed • Real-Time Prep
           </span>
-          <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-stone-900">
-            Ready for Pickup at {currentOrder.timeSlot}
+          <h1 className="wide text-6xl sm:text-8xl text-forest">
+            Ready at {currentOrder.timeSlot}
           </h1>
           <p className="text-stone-600 text-sm max-w-md mx-auto">
             Thank you, <strong className="text-stone-900">{currentOrder.customerName}</strong>. Our kitchen is preparing your whole-ingredient order right now.
@@ -83,13 +85,13 @@ export default function OrderPickupPage() {
         </div>
 
         {/* Live Prep Status Tracker */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#E8E0D2] shadow-sm space-y-6">
+        <div className="bg-paper rounded-3xl p-6 sm:p-8 border-2 border-[#EED9AE] shadow-sm space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-stone-200">
             <div>
               <span className="text-xs text-stone-500 uppercase tracking-wider font-semibold">
                 Demo Order Reference
               </span>
-              <div className="text-2xl font-display font-extrabold text-[#E54F38]">
+              <div className="text-2xl font-display font-extrabold text-[#D94F3A]">
                 {currentOrder.id}
               </div>
             </div>
@@ -98,7 +100,7 @@ export default function OrderPickupPage() {
                 Target Pickup Time
               </span>
               <div className="text-lg font-bold text-stone-900 flex items-center gap-1.5 justify-end">
-                <Clock className="w-4 h-4 text-[#E54F38]" />
+                <Clock className="w-4 h-4 text-[#D94F3A]" />
                 {currentOrder.timeSlot} Today
               </div>
             </div>
@@ -110,24 +112,24 @@ export default function OrderPickupPage() {
               Kitchen Preparation Status:
             </h4>
             <div className="grid grid-cols-3 gap-2 text-center text-xs">
-              <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold">
-                <div className="text-lg mb-1">✓</div>
+              <div className="p-3 rounded-xl bg-[#FFF0C2] border border-[#F5C24A] text-[#D94F3A] font-bold">
+                <CheckCircle className="w-5 h-5 mx-auto mb-1" />
                 <span>1. Order Placed</span>
               </div>
-              <div className="p-3 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 font-bold animate-pulse">
-                <div className="text-lg mb-1">🧑‍🍳</div>
+              <div className="p-3 rounded-xl bg-[#FDE7DA] border-2 border-[#F7B48F] text-[#C2461A] font-bold animate-pulse">
+                <ChefHat className="w-5 h-5 mx-auto mb-1" />
                 <span>2. Cooking in Kitchen</span>
               </div>
               <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-400 font-medium">
-                <div className="text-lg mb-1">📦</div>
+                <Package className="w-5 h-5 mx-auto mb-1" />
                 <span>3. Ready at Counter</span>
               </div>
             </div>
           </div>
 
           {/* Pickup Instructions */}
-          <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8E0D2] flex items-start gap-3">
-            <MapPin className="w-5 h-5 text-[#E54F38] shrink-0 mt-0.5" />
+          <div className="p-4 rounded-2xl bg-[#FEF6DE] border border-[#EED9AE] flex items-start gap-3">
+            <MapPin className="w-5 h-5 text-[#D94F3A] shrink-0 mt-0.5" />
             <div className="text-xs text-stone-700 leading-relaxed">
               <strong className="block text-stone-900 font-semibold mb-0.5">
                 Pickup Location Instructions:
@@ -147,7 +149,7 @@ export default function OrderPickupPage() {
               {currentOrder.items.map((ci, idx) => (
                 <div key={idx} className="py-2.5 flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-[#E54F38] text-xs w-5">{ci.quantity}x</span>
+                    <span className="font-bold text-[#D94F3A] text-xs w-5">{ci.quantity}x</span>
                     <span className="text-stone-800 font-medium">{ci.item.name}</span>
                   </div>
                   <span className="font-mono text-stone-700">
@@ -168,7 +170,7 @@ export default function OrderPickupPage() {
               </div>
               <div className="flex justify-between text-base font-bold text-stone-900 pt-2 border-t border-stone-100">
                 <span>Total Demo Amount</span>
-                <span className="text-lg text-[#E54F38] font-display">
+                <span className="text-lg text-[#D94F3A] font-display">
                   ${currentOrder.total.toFixed(2)}
                 </span>
               </div>
@@ -180,14 +182,14 @@ export default function OrderPickupPage() {
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/dashboard"
-            className="flex-1 py-4 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-sm text-center shadow transition-all flex items-center justify-center gap-2"
+            className="btn btn-forest flex-1"
           >
             <span>View this order in Owner Dashboard</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           <button
             onClick={handleStartNewOrder}
-            className="px-6 py-4 rounded-2xl border-2 border-stone-300 text-stone-800 font-bold text-sm hover:bg-white transition-colors flex items-center justify-center gap-2"
+            className="btn btn-ghost"
           >
             <RotateCcw className="w-4 h-4" />
             <span>Place Another Order</span>
@@ -198,23 +200,17 @@ export default function OrderPickupPage() {
   }
 
   return (
-    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
-      {/* Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-2">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#E88544]">
-          Express Pickup Counter
-        </span>
-        <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-[#1E1B18]">
-          Order Ahead for Pickup
-        </h1>
-        <p className="text-stone-600 text-sm">
-          Skip the line at 700 King West. Pick your time slot between 8am and 8pm for fresh, whole-ingredient comfort food.
-        </p>
-      </div>
-
+    <div className="pb-20">
+      <PageHeader
+        lines={['Pickup']}
+        script="skip the line"
+        intro="Build your bag, choose a 15-minute slot between 8am and 8pm, and walk in to 700 King West when it's ready."
+        fact={{ value: '$0', label: 'pickup fee — no 30% delivery-app markup' }}
+      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-8">
       {/* Demo Warning Banner */}
-      <div className="max-w-4xl mx-auto bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center gap-3 text-xs text-amber-900">
-        <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+      <div className="max-w-4xl mx-auto bg-[#FDE7DA] border border-[#F7B48F] rounded-2xl p-4 flex items-center gap-3 text-xs text-[#C2461A]">
+        <AlertCircle className="w-5 h-5 text-[#C2461A] shrink-0" />
         <div className="leading-relaxed">
           <strong>Interactive Sales Demo:</strong> No credit card or POS connection required. Feel free to customize quantities, select a time slot, and test the full flow on screen.
         </div>
@@ -223,20 +219,20 @@ export default function OrderPickupPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-5xl mx-auto">
         {/* Left Column: Bag & Quick Add */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border-2 border-[#E8E0D2] shadow-xs space-y-4">
+          <div className="bg-paper rounded-3xl p-6 sm:p-7 border-2 border-[#EED9AE] shadow-xs space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-stone-200">
               <h2 className="font-display font-bold text-xl text-stone-900 flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[#E54F38]" />
+                <ShoppingBag className="w-5 h-5 text-[#D94F3A]" />
                 Your Selected Items ({cartCount})
               </h2>
-              <Link href="/menu" className="text-xs font-bold text-[#E54F38] hover:underline">
+              <Link href="/menu" className="text-xs font-bold text-[#D94F3A] hover:underline">
                 + Add more items
               </Link>
             </div>
 
             {items.length === 0 ? (
               <div className="text-center py-12 px-4">
-                <div className="text-4xl mb-2">🥗</div>
+                <p className="font-script text-3xl text-orange mb-1">nothing yet</p>
                 <h3 className="font-display font-bold text-base text-stone-900">Your bag is empty</h3>
                 <p className="text-xs text-stone-500 mt-1 max-w-xs mx-auto">
                   Add one of our signature plates below to test the ordering checkout flow!
@@ -244,13 +240,13 @@ export default function OrderPickupPage() {
                 <div className="mt-4 flex flex-wrap justify-center gap-2">
                   <button
                     onClick={() => addItem(MENU_ITEMS[0], 1)}
-                    className="px-3 py-1.5 rounded-lg bg-[#E54F38] text-white text-xs font-bold hover:bg-[#CF3F29]"
+                    className="px-3 py-1.5 rounded-lg bg-[#D94F3A] text-white text-xs font-bold hover:bg-[#2A1A14]"
                   >
                     + Add Lomo Saltado
                   </button>
                   <button
                     onClick={() => addItem(MENU_ITEMS[1], 1)}
-                    className="px-3 py-1.5 rounded-lg bg-[#E88544] text-white text-xs font-bold hover:bg-[#d07335]"
+                    className="px-3 py-1.5 rounded-lg bg-[#EE8A2B] text-white text-xs font-bold hover:bg-[#D4731A]"
                   >
                     + Add Rotisserie Chicken
                   </button>
@@ -261,14 +257,15 @@ export default function OrderPickupPage() {
                 {items.map((ci) => (
                   <div
                     key={ci.item.id}
-                    className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8E0D2] flex gap-3 items-center"
+                    className="p-4 rounded-2xl bg-[#FEF6DE] border border-[#EED9AE] flex gap-3 items-center"
                   >
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
-                      style={{ backgroundColor: ci.item.visual.bgBlobColor || '#FFF' }}
-                    >
-                      {ci.item.visual.accentEmoji}
-                    </div>
+                    <Img
+                      src={ci.item.visual.imageSrc!}
+                      w={140}
+                      h={140}
+                      alt=""
+                      className="w-14 h-14 rounded-xl object-cover shrink-0"
+                    />
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between">
@@ -277,7 +274,7 @@ export default function OrderPickupPage() {
                         </h4>
                         <button
                           onClick={() => removeItem(ci.item.id)}
-                          className="text-stone-400 hover:text-rose-600 transition-colors p-1"
+                          className="text-stone-400 hover:text-[#D4731A] transition-colors p-1"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -288,7 +285,7 @@ export default function OrderPickupPage() {
                       </div>
 
                       <div className="flex items-center justify-between mt-2 pt-1">
-                        <div className="flex items-center gap-2 bg-white rounded-lg border border-stone-200 p-0.5">
+                        <div className="flex items-center gap-2 bg-paper rounded-lg border border-stone-200 p-0.5">
                           <button
                             onClick={() => updateQuantity(ci.item.id, -1)}
                             className="w-6 h-6 flex items-center justify-center text-stone-600 hover:bg-stone-100 rounded"
@@ -306,7 +303,7 @@ export default function OrderPickupPage() {
                           </button>
                         </div>
 
-                        <span className="font-bold text-sm text-[#E54F38]">
+                        <span className="font-bold text-sm text-[#D94F3A]">
                           ${(ci.item.price * ci.quantity).toFixed(2)}
                         </span>
                       </div>
@@ -318,9 +315,9 @@ export default function OrderPickupPage() {
           </div>
 
           {/* Quick Popular Add-Ons */}
-          <div className="bg-white rounded-3xl p-5 border border-[#E8E0D2] shadow-xs space-y-3">
+          <div className="bg-paper rounded-3xl p-5 border border-[#EED9AE] shadow-xs space-y-3">
             <h3 className="font-display font-bold text-sm text-stone-900 flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#E88544]" />
+              <Sparkles className="w-4 h-4 text-[#EE8A2B]" />
               Popular Immunity Shots & Sides
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -329,10 +326,10 @@ export default function OrderPickupPage() {
                 .map((dish) => (
                   <div
                     key={dish.id}
-                    className="p-2.5 rounded-xl bg-[#FAF7F2] border border-stone-200 flex items-center justify-between gap-2"
+                    className="p-2.5 rounded-xl bg-[#FEF6DE] border border-stone-200 flex items-center justify-between gap-2"
                   >
                     <div className="flex items-center gap-2 min-w-0">
-                      <span className="text-lg">{dish.visual.accentEmoji}</span>
+                      <Img src={dish.visual.imageSrc!} w={96} h={96} alt="" className="w-9 h-9 rounded-lg object-cover shrink-0" />
                       <div className="truncate">
                         <div className="text-xs font-bold text-stone-800 truncate">{dish.name}</div>
                         <div className="text-[10px] text-stone-500">${dish.price.toFixed(2)}</div>
@@ -340,7 +337,7 @@ export default function OrderPickupPage() {
                     </div>
                     <button
                       onClick={() => addItem(dish, 1)}
-                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-stone-100 border border-stone-300 text-[11px] font-bold text-stone-800 shrink-0 shadow-xs"
+                      className="px-2.5 py-1 rounded-lg bg-paper hover:bg-stone-100 border border-stone-300 text-[11px] font-bold text-stone-800 shrink-0 shadow-xs"
                     >
                       + Add
                     </button>
@@ -354,16 +351,16 @@ export default function OrderPickupPage() {
         <div className="lg:col-span-5 space-y-6">
           <form
             onSubmit={handlePlaceOrder}
-            className="bg-white rounded-3xl p-6 sm:p-7 border-2 border-[#E8E0D2] shadow-sm space-y-5"
+            className="bg-paper rounded-3xl p-6 sm:p-7 border-2 border-[#EED9AE] shadow-sm space-y-5"
           >
             <h3 className="font-display font-bold text-lg text-stone-900 border-b border-stone-200 pb-3 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-[#E54F38]" />
+              <Clock className="w-5 h-5 text-[#D94F3A]" />
               Choose 15-Min Pickup Slot
             </h3>
 
             {/* Time Slot Picker */}
             <div>
-              <div className="grid grid-cols-3 gap-2 max-h-52 overflow-y-auto p-1 bg-[#FAF7F2] rounded-xl border border-stone-200">
+              <div className="grid grid-cols-3 gap-2 max-h-52 overflow-y-auto p-1 bg-[#FEF6DE] rounded-xl border border-stone-200">
                 {PICKUP_TIME_SLOTS.map((slot) => {
                   const isSelected = selectedTimeSlot === slot.time;
                   const isBusy = slot.status === 'busy';
@@ -374,15 +371,15 @@ export default function OrderPickupPage() {
                       onClick={() => setSelectedTimeSlot(slot.time)}
                       className={`py-2 px-2 rounded-lg text-xs font-semibold text-center transition-all ${
                         isSelected
-                          ? 'bg-[#E54F38] text-white font-bold shadow-xs scale-102'
+                          ? 'bg-forest text-paper font-bold shadow-xs'
                           : isBusy
-                          ? 'bg-amber-100/70 text-amber-900 border border-amber-300 hover:bg-amber-100'
-                          : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+                          ? 'bg-[#FDE7DA]/70 text-[#C2461A] border border-[#F7B48F] hover:bg-[#FDE7DA]'
+                          : 'bg-paper text-stone-700 hover:bg-stone-100 border border-stone-200'
                       }`}
                     >
                       <div>{slot.time}</div>
                       {isBusy && (
-                        <div className={`text-[9px] ${isSelected ? 'text-white' : 'text-amber-800'}`}>
+                        <div className={`text-[9px] ${isSelected ? 'text-white' : 'text-[#C2461A]'}`}>
                           {slot.label || 'Rush'}
                         </div>
                       )}
@@ -391,7 +388,7 @@ export default function OrderPickupPage() {
                 })}
               </div>
               <p className="text-[11px] text-stone-500 mt-1.5 flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-[#E54F38]" />
+                <MapPin className="w-3.5 h-3.5 text-[#D94F3A]" />
                 Selected time: <strong className="text-stone-900">{selectedTimeSlot}</strong> at 700 King W
               </p>
             </div>
@@ -413,7 +410,7 @@ export default function OrderPickupPage() {
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="e.g. J. Sample"
                   required
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#E54F38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FEF6DE] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D94F3A]"
                 />
               </div>
 
@@ -428,7 +425,7 @@ export default function OrderPickupPage() {
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   placeholder="(416) 555-0199"
                   required
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#E54F38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FEF6DE] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D94F3A]"
                 />
               </div>
 
@@ -442,13 +439,13 @@ export default function OrderPickupPage() {
                   value={orderNotes}
                   onChange={(e) => setOrderNotes(e.target.value)}
                   placeholder="e.g. sauce on side, extra napkins"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#E54F38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FEF6DE] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D94F3A]"
                 />
               </div>
             </div>
 
             {/* Price calculation */}
-            <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-stone-200 space-y-1.5 text-xs text-stone-600">
+            <div className="bg-[#FEF6DE] p-4 rounded-2xl border border-stone-200 space-y-1.5 text-xs text-stone-600">
               <div className="flex justify-between">
                 <span>Items Subtotal</span>
                 <span className="font-medium text-stone-900">${subtotal.toFixed(2)}</span>
@@ -457,13 +454,13 @@ export default function OrderPickupPage() {
                 <span>Ontario HST (13%)</span>
                 <span>${tax.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-emerald-700 font-semibold">
+              <div className="flex justify-between text-[#D94F3A] font-semibold">
                 <span>Direct Pickup Fee</span>
                 <span>$0.00 (No 30% App Surcharge)</span>
               </div>
               <div className="flex justify-between text-base font-bold text-stone-900 pt-2 border-t border-stone-200">
                 <span>Total (Demo)</span>
-                <span className="text-xl font-display text-[#E54F38]">${total.toFixed(2)}</span>
+                <span className="text-xl font-display text-[#D94F3A]">${total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -471,10 +468,9 @@ export default function OrderPickupPage() {
             <button
               type="submit"
               disabled={items.length === 0}
-              className="w-full py-4 rounded-2xl bg-[#E54F38] hover:bg-[#CF3F29] disabled:opacity-50 text-white font-bold text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+              className="btn btn-lime w-full !py-4 !text-base"
             >
-              <Sparkles className="w-5 h-5" />
-              <span>Place Demo Pickup Order</span>
+              <span>Place demo pickup order</span>
             </button>
 
             <p className="text-[11px] text-center text-stone-400">
@@ -482,6 +478,7 @@ export default function OrderPickupPage() {
             </p>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );

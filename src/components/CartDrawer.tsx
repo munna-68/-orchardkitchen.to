@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Img from '@/components/Img';
 import { useCart } from '@/context/CartContext';
 import { PICKUP_TIME_SLOTS } from '@/data/mockData';
 import { X, Trash2, Plus, Minus, Clock, MapPin, CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
@@ -45,16 +46,16 @@ export default function CartDrawer() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-stone-900/50 backdrop-blur-xs animate-in fade-in duration-200">
+    <div data-lenis-prevent className="fixed inset-0 z-50 flex justify-end bg-forest-deep/60 backdrop-blur-xs animate-in fade-in duration-200">
       {/* Background click to close */}
       <div className="absolute inset-0" onClick={closeCart} />
 
       {/* Drawer Container */}
-      <div className="relative w-full max-w-lg bg-[#FAF7F2] h-full shadow-2xl flex flex-col border-l border-[#E8E0D2] z-10">
+      <div className="relative w-full max-w-lg bg-[#FEF6DE] h-full shadow-2xl flex flex-col border-l border-[#EED9AE] z-10">
         {/* Header */}
-        <div className="p-5 border-b border-[#E8E0D2] bg-white flex items-center justify-between">
+        <div className="p-5 border-b border-[#EED9AE] bg-paper flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-display font-bold text-[#1E1B18]">
+            <h2 className="wide-medium text-4xl text-forest">
               {step === 'cart' && `Your Pickup Bag (${cartCount})`}
               {step === 'pickup' && 'Pickup & Contact Details'}
               {step === 'confirmed' && 'Order Received!'}
@@ -70,8 +71,8 @@ export default function CartDrawer() {
         </div>
 
         {/* Demo Notice Banner */}
-        <div className="bg-[#FAF2E6] px-4 py-2 border-b border-[#E8DEC8] flex items-center gap-2 text-xs text-[#92400E]">
-          <span className="font-bold text-[10px] uppercase tracking-wider bg-[#E88544] text-white px-1.5 py-0.5 rounded">
+        <div className="bg-[#FCEFCB] px-4 py-2 border-b border-[#EED9AE] flex items-center gap-2 text-xs text-[#92400E]">
+          <span className="font-bold text-[10px] uppercase tracking-wider bg-[#EE8A2B] text-white px-1.5 py-0.5 rounded">
             Demo Mode
           </span>
           <span>No payment required • Prepared for sales recording</span>
@@ -83,7 +84,7 @@ export default function CartDrawer() {
             <div className="flex-1 overflow-y-auto p-5 space-y-4">
               {items.length === 0 ? (
                 <div className="text-center py-16 px-4">
-                  <div className="w-16 h-16 rounded-full bg-[#F3ECE1] flex items-center justify-center mx-auto mb-4 text-3xl">
+                  <div className="w-16 h-16 rounded-full bg-[#FBEBC4] flex items-center justify-center mx-auto mb-4 text-3xl">
                     🥣
                   </div>
                   <h3 className="font-display font-bold text-lg text-stone-900">
@@ -94,7 +95,7 @@ export default function CartDrawer() {
                   </p>
                   <button
                     onClick={closeCart}
-                    className="mt-6 px-6 py-2.5 rounded-xl bg-[#E54F38] text-white text-sm font-semibold shadow hover:bg-[#CF3F29] transition-colors"
+                    className="btn btn-lime btn-sm mt-6"
                   >
                     Browse Menu
                   </button>
@@ -103,15 +104,16 @@ export default function CartDrawer() {
                 items.map((ci) => (
                   <div
                     key={ci.item.id}
-                    className="p-4 rounded-2xl bg-white border border-[#E8E0D2] shadow-xs flex gap-3 items-start"
+                    className="p-4 rounded-2xl bg-paper border border-[#EED9AE] shadow-xs flex gap-3 items-start"
                   >
                     {/* Visual icon */}
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
-                      style={{ backgroundColor: ci.item.visual.bgBlobColor || '#FDF0ED' }}
-                    >
-                      {ci.item.visual.accentEmoji}
-                    </div>
+                    <Img
+                      src={ci.item.visual.imageSrc!}
+                      w={140}
+                      h={140}
+                      alt=""
+                      className="w-14 h-14 rounded-xl object-cover shrink-0"
+                    />
 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
@@ -121,7 +123,7 @@ export default function CartDrawer() {
                         </h4>
                         <button
                           onClick={() => removeItem(ci.item.id)}
-                          className="text-stone-400 hover:text-rose-600 transition-colors p-1"
+                          className="text-stone-400 hover:text-[#D4731A] transition-colors p-1"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -132,17 +134,17 @@ export default function CartDrawer() {
                       </div>
 
                       {ci.notes && (
-                        <div className="text-[11px] text-[#547243] bg-emerald-50 rounded px-2 py-0.5 mt-1">
+                        <div className="text-[11px] text-[#B8412D] bg-[#FFF0C2] rounded px-2 py-0.5 mt-1">
                           Note: {ci.notes}
                         </div>
                       )}
 
                       {/* Quantity Controller */}
                       <div className="flex items-center justify-between mt-3 pt-2 border-t border-stone-100">
-                        <div className="flex items-center gap-2 bg-[#FAF7F2] rounded-lg border border-stone-200 p-0.5">
+                        <div className="flex items-center gap-2 bg-[#FEF6DE] rounded-lg border border-stone-200 p-0.5">
                           <button
                             onClick={() => updateQuantity(ci.item.id, -1)}
-                            className="w-6 h-6 flex items-center justify-center rounded bg-white text-stone-700 hover:bg-stone-50 shadow-xs"
+                            className="w-6 h-6 flex items-center justify-center rounded bg-paper text-stone-700 hover:bg-stone-50 shadow-xs"
                           >
                             <Minus className="w-3 h-3" />
                           </button>
@@ -151,13 +153,13 @@ export default function CartDrawer() {
                           </span>
                           <button
                             onClick={() => updateQuantity(ci.item.id, 1)}
-                            className="w-6 h-6 flex items-center justify-center rounded bg-white text-stone-700 hover:bg-stone-50 shadow-xs"
+                            className="w-6 h-6 flex items-center justify-center rounded bg-paper text-stone-700 hover:bg-stone-50 shadow-xs"
                           >
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>
 
-                        <span className="font-bold text-sm text-[#E54F38]">
+                        <span className="font-bold text-sm text-[#D94F3A]">
                           ${(ci.item.price * ci.quantity).toFixed(2)}
                         </span>
                       </div>
@@ -169,7 +171,7 @@ export default function CartDrawer() {
 
             {/* Footer with totals */}
             {items.length > 0 && (
-              <div className="p-5 bg-white border-t border-[#E8E0D2] space-y-3">
+              <div className="p-5 bg-paper border-t border-[#EED9AE] space-y-3">
                 <div className="flex items-center justify-between text-sm text-stone-600">
                   <span>Subtotal</span>
                   <span className="font-medium text-stone-900">${subtotal.toFixed(2)}</span>
@@ -180,12 +182,12 @@ export default function CartDrawer() {
                 </div>
                 <div className="flex items-center justify-between text-base font-bold text-stone-900 pt-2 border-t border-stone-200">
                   <span>Total (Demo)</span>
-                  <span className="text-xl font-display text-[#E54F38]">${total.toFixed(2)}</span>
+                  <span className="text-xl font-display text-[#D94F3A]">${total.toFixed(2)}</span>
                 </div>
 
                 <button
                   onClick={() => setStep('pickup')}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#E54F38] hover:bg-[#CF3F29] text-white font-bold transition-all shadow-md mt-2"
+                  className="btn btn-lime w-full mt-2"
                 >
                   Choose Pickup Time & Details
                   <ArrowRight className="w-4 h-4" />
@@ -199,15 +201,15 @@ export default function CartDrawer() {
         {step === 'pickup' && (
           <div className="flex-1 overflow-y-auto p-5 space-y-5">
             {/* Store Location */}
-            <div className="p-4 rounded-2xl bg-white border border-[#E8E0D2] space-y-1">
+            <div className="p-4 rounded-2xl bg-paper border border-[#EED9AE] space-y-1">
               <div className="flex items-center gap-2 text-stone-900 font-bold text-sm">
-                <MapPin className="w-4 h-4 text-[#E54F38]" />
+                <MapPin className="w-4 h-4 text-[#D94F3A]" />
                 <span>Express Pickup Counter</span>
               </div>
               <p className="text-xs text-stone-600">
                 700 King St. W, Toronto (King & Bathurst)
               </p>
-              <p className="text-[11px] text-[#547243] font-medium pt-1">
+              <p className="text-[11px] text-[#B8412D] font-medium pt-1">
                 Open Daily 8:00 AM – 8:00 PM • Fast In-Store Hand-Off
               </p>
             </div>
@@ -216,13 +218,13 @@ export default function CartDrawer() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-[#E54F38]" />
+                  <Clock className="w-3.5 h-3.5 text-[#D94F3A]" />
                   Select Pickup Time (Today):
                 </label>
                 <span className="text-[11px] text-stone-500">15-min slots</span>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto p-1 bg-white rounded-xl border border-[#E8E0D2]">
+              <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto p-1 bg-paper rounded-xl border border-[#EED9AE]">
                 {PICKUP_TIME_SLOTS.map((slot) => {
                   const isSelected = selectedTimeSlot === slot.time;
                   const isBusy = slot.status === 'busy';
@@ -233,15 +235,15 @@ export default function CartDrawer() {
                       onClick={() => setSelectedTimeSlot(slot.time)}
                       className={`py-2 px-2 rounded-lg text-xs font-medium text-center transition-all relative ${
                         isSelected
-                          ? 'bg-[#E54F38] text-white font-bold shadow-xs'
+                          ? 'bg-forest text-paper font-bold shadow-xs'
                           : isBusy
-                          ? 'bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100'
-                          : 'bg-[#FAF7F2] text-stone-800 hover:bg-[#F0E9DC] border border-stone-200'
+                          ? 'bg-[#FDE7DA] text-[#C2461A] border border-[#F7B48F] hover:bg-[#FDE7DA]'
+                          : 'bg-[#FEF6DE] text-stone-800 hover:bg-[#FBEBC4] border border-stone-200'
                       }`}
                     >
                       <div>{slot.time}</div>
                       {isBusy && !isSelected && (
-                        <div className="text-[9px] font-bold text-amber-700">
+                        <div className="text-[9px] font-bold text-[#C2461A]">
                           {slot.label || 'Busy'}
                         </div>
                       )}
@@ -255,7 +257,7 @@ export default function CartDrawer() {
             </div>
 
             {/* Customer Information (Demo Names) */}
-            <div className="space-y-3 bg-white p-4 rounded-2xl border border-[#E8E0D2]">
+            <div className="space-y-3 bg-paper p-4 rounded-2xl border border-[#EED9AE]">
               <h4 className="text-xs font-bold uppercase tracking-wider text-stone-700">
                 Contact For Order Pickup Text:
               </h4>
@@ -267,7 +269,7 @@ export default function CartDrawer() {
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="e.g. J. Sample"
-                  className="w-full px-3 py-2 rounded-lg bg-[#FAF7F2] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#E54F38]"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FEF6DE] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D94F3A]"
                 />
               </div>
 
@@ -278,7 +280,7 @@ export default function CartDrawer() {
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   placeholder="(416) 555-0199"
-                  className="w-full px-3 py-2 rounded-lg bg-[#FAF7F2] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#E54F38]"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FEF6DE] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D94F3A]"
                 />
               </div>
 
@@ -289,16 +291,16 @@ export default function CartDrawer() {
                   value={orderNotes}
                   onChange={(e) => setOrderNotes(e.target.value)}
                   placeholder="e.g. extra napkins, calling when arriving"
-                  className="w-full px-3 py-2 rounded-lg bg-[#FAF7F2] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#E54F38]"
+                  className="w-full px-3 py-2 rounded-lg bg-[#FEF6DE] border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D94F3A]"
                 />
               </div>
             </div>
 
             {/* Total summary */}
-            <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8E0D2] flex justify-between items-center">
+            <div className="bg-[#FEF6DE] p-4 rounded-2xl border border-[#EED9AE] flex justify-between items-center">
               <div>
                 <div className="text-xs text-stone-500">Total Demo Amount</div>
-                <div className="text-xl font-display font-bold text-[#E54F38]">
+                <div className="text-xl font-display font-bold text-[#D94F3A]">
                   ${total.toFixed(2)}
                 </div>
               </div>
@@ -313,14 +315,14 @@ export default function CartDrawer() {
               <button
                 type="button"
                 onClick={() => setStep('cart')}
-                className="px-4 py-3 rounded-xl border border-stone-300 text-stone-700 text-sm font-semibold hover:bg-white"
+                className="px-4 py-3 rounded-xl border border-stone-300 text-stone-700 text-sm font-semibold hover:bg-paper"
               >
                 Back
               </button>
               <button
                 type="button"
                 onClick={handlePlaceOrder}
-                className="flex-1 py-3.5 rounded-xl bg-[#E54F38] hover:bg-[#CF3F29] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                className="btn btn-lime flex-1"
               >
                 <Sparkles className="w-4 h-4" />
                 Place Demo Pickup Order
@@ -332,15 +334,15 @@ export default function CartDrawer() {
         {/* STEP 3: ORDER CONFIRMED */}
         {step === 'confirmed' && (
           <div className="flex-1 overflow-y-auto p-6 flex flex-col items-center justify-center text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-inner">
+            <div className="w-16 h-16 rounded-full bg-[#FFF0C2] text-[#D94F3A] flex items-center justify-center shadow-inner">
               <CheckCircle className="w-10 h-10" />
             </div>
 
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#D94F3A] bg-[#FFF0C2] px-3 py-1 rounded-full border border-[#F5C24A]">
                 Order Received • Whole Kitchen Working
               </span>
-              <h3 className="font-display font-bold text-2xl text-stone-900 mt-2">
+              <h3 className="wide text-5xl text-forest mt-2">
                 Thank You, {customerName}!
               </h3>
               <p className="text-sm text-stone-600 mt-1">
@@ -349,7 +351,7 @@ export default function CartDrawer() {
             </div>
 
             {/* Receipt Summary Card */}
-            <div className="w-full bg-white rounded-2xl p-5 border-2 border-[#E8E0D2] text-left space-y-3 shadow-xs">
+            <div className="w-full bg-paper rounded-2xl p-5 border-2 border-[#EED9AE] text-left space-y-3 shadow-xs">
               <div className="flex justify-between items-center pb-2 border-b border-stone-200 text-xs">
                 <span className="text-stone-500">Pickup Window</span>
                 <span className="font-bold text-stone-900">{selectedTimeSlot} Today</span>
@@ -360,9 +362,9 @@ export default function CartDrawer() {
               </div>
               <div className="flex justify-between items-center text-xs">
                 <span className="text-stone-500">Total (Demo)</span>
-                <span className="font-bold text-[#E54F38] text-base">${total.toFixed(2)}</span>
+                <span className="font-bold text-[#D94F3A] text-base">${total.toFixed(2)}</span>
               </div>
-              <div className="pt-2 text-[11px] text-[#547243] bg-emerald-50 rounded-lg p-2.5">
+              <div className="pt-2 text-[11px] text-[#B8412D] bg-[#FFF0C2] rounded-lg p-2.5">
                 🌿 Freshly prepared with zero seed oils, in-house dressings, and whole Ontario ingredients.
               </div>
             </div>
@@ -372,7 +374,7 @@ export default function CartDrawer() {
               <Link
                 href="/dashboard"
                 onClick={handleReset}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-sm transition-all shadow"
+                className="btn btn-forest w-full"
               >
                 View in Restaurant Owner Dashboard
                 <ArrowRight className="w-4 h-4" />
@@ -381,7 +383,7 @@ export default function CartDrawer() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="w-full py-2.5 rounded-xl border border-stone-300 text-stone-700 text-sm font-semibold hover:bg-white transition-colors"
+                className="w-full py-2.5 rounded-xl border border-stone-300 text-stone-700 text-sm font-semibold hover:bg-paper transition-colors"
               >
                 Place Another Test Order
               </button>

@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Orchard Kitchen — whole-ingredient pickup site (demo)
 
-## Getting Started
+Next.js 16 + Tailwind v4 + GSAP. Run it with `npm run dev` and open http://localhost:3000.
 
-First, run the development server:
+## Design notes
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Direction:** a market-sticker poster look — giant condensed black caps with a brush-script
+signature overlapping the foot of the word, dog-eared cards, ticket cards with side notches,
+rotating scalloped stamps, and rounded pill buttons.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Palette (Orchard Kitchen brand, from the logo and Instagram):**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Token | Hex | Use |
+| --- | --- | --- |
+| `cream` | `#FEF6DE` | page ground (with a faint grid, `.paper-grid`) |
+| `forest` | `#D94F3A` | brand coral: headings, coloured bands, step cards |
+| `forest-deep` / `ink` | `#2A1A14` | logo-tree brown: text, hero scrim, footer |
+| `lime` | `#FFD66B` | butter action colour: buttons, stickers, strips |
+| `orange` | `#EE8A2B` | autumn orange: script signatures, stamps |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Token names (`forest`, `lime`) are kept from the first pass so classes stay stable; only the
+values in `src/app/globals.css` changed. Swap them there to re-theme everything.
 
-## Learn More
+**Type:** Archivo (variable, `wdth` axis). `.wide` = wdth 62 / 900 for giant words,
+`.wide-medium` for smaller headings, `.font-display` for card titles. Kaushan Script for the
+`.font-script` signatures. The dashboard scopes a tighter, non-uppercase cut (`.dash`).
 
-To learn more about Next.js, take a look at the following resources:
+**Buttons:** `.btn` + `.btn-lime | .btn-forest | .btn-ghost | .btn-ghost-light`, optional
+`.btn-sm`; wrap the label in `.roll` (two spans) for the rolling hover.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Motion (GSAP + ScrollTrigger + SplitText, Lenis smooth scroll)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Preloader** (`src/components/Preloader.tsx`, home only, once per session): a coral cover
+  with "UNPROCESSED" cut out of it; the letters fill with the hero photo bottom-up while a
+  counter runs 000→100, then the camera dives through the stem of the "P" and the photo becomes
+  the hero. Replay with `sessionStorage.clear()` and a reload.
+- Hero word rises letter by letter, script wipes in, stamp spins in; scroll pushes the photo in.
+- Section titles (`BigTitle`) split-reveal on scroll; how-it-works photo opens from a window;
+  mission principles are stacking sticky cards; statement words light up as you scroll;
+  footer wordmark rises.
+- Everything sits inside `gsap.matchMedia()`; `prefers-reduced-motion: reduce` just shows content.
 
-## Deploy on Vercel
+## Photos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All food photography is **placeholder stock from Unsplash** (credited in the footer):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- per-dish photos: `visual.imageSrc` on each item in `src/data/mockData.ts`
+- hero and section photos: `SITE_PHOTOS` in the same file
+
+To use Orchard Kitchen's own photos, drop files into `public/images/` and point those
+paths at them (e.g. `'/images/lomo-saltado.jpg'`).
